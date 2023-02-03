@@ -14,9 +14,19 @@ TBD
 
 ## How to use
 
+1. build the frontend
+
+```bash
+cd sdui-frontend
+npm install .
+npm run build
 ```
+
+2. run the server
+
+```bash
 export HUG_TOKEN=<YOUR_ACCESS_TOKEN>
 python -m flask --app sdui run -p 8080 --host 0.0.0.0
 ```
 
-Then, access to localhost:8080 on your browser.
+3. Then, access to localhost:8080 on your browser.
