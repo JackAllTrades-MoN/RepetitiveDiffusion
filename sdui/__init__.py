@@ -51,3 +51,5 @@ def create_app(test_config=None):
       threading.Thread(target=run_convert).start()
 
     return jsonify({"message": "succeeded"}), 200
+
+  return app
