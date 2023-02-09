@@ -7,3 +7,4 @@ node_modules
 dist
 sdui/static/imgs/output.png
 sdui/static/js/bundle.js
+*.service
