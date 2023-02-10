@@ -2,7 +2,7 @@ import os
 import threading
 import json
 from flask import Flask, render_template, request, jsonify, url_for
-from .img2img import convert
+from .img2img import WD, SD
 
 def create_app(test_config=None):
   app = Flask(__name__, instance_relative_config=True)
@@ -22,6 +22,8 @@ def create_app(test_config=None):
   except OSError:
     pass
 
+  wd = WD()
+  sd = SD()
 
   @app.route("/", methods=["GET"])
   def index():
@@ -40,15 +42,19 @@ def create_app(test_config=None):
       if os.path.isfile(output_file_name):
         os.remove(output_file_name)
 
-      def run_convert():
-        convert(
+      def run():
+        i2i = sd
+        if 'model_name' in data and data['model_name'] == 'waifu':
+          i2i = wd
+
+        i2i.run(
           data['prompt'],
           input_file_name,
           output_file_name,
           strength=float(data['strength'])
         )
 
-      threading.Thread(target=run_convert).start()
+      threading.Thread(target=run).start()
 
     return jsonify({"message": "succeeded"}), 200
 
